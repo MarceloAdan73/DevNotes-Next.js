@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { supabaseApi as api } from '@/lib/supabase-api'
 import { Post } from '@/lib/types'
 import CreatePostForm from '@/components/CreatePostForm'

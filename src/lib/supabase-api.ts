@@ -4,6 +4,8 @@ import { Post } from './types'
 export const supabaseApi = {
   // Obtener todos los posts
   async getPosts(): Promise<{ data: Post[] }> {
+    if (!supabase) return { data: [] }
+
     const { data, error } = await supabase
       .from('posts')
       .select('*')
@@ -27,6 +29,8 @@ export const supabaseApi = {
 
   // Crear nuevo post
   async createPost(postData: Omit<Post, 'id' | 'createdAt' | 'likes'>): Promise<{ data: Post }> {
+    if (!supabase) throw new Error('Supabase not configured')
+
     const { data, error } = await supabase
       .from('posts')
       .insert([{
@@ -55,6 +59,8 @@ export const supabaseApi = {
 
   // Actualizar post
   async updatePost(id: number, postData: Partial<Pick<Post, 'title' | 'content' | 'tags'>>): Promise<void> {
+    if (!supabase) throw new Error('Supabase not configured')
+
     const { error } = await supabase
       .from('posts')
       .update({
@@ -70,6 +76,8 @@ export const supabaseApi = {
 
   // Eliminar post
   async deletePost(id: number): Promise<void> {
+    if (!supabase) throw new Error('Supabase not configured')
+
     const { error } = await supabase
       .from('posts')
       .delete()
