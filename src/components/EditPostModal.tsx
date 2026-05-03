@@ -34,6 +34,7 @@ export default function EditPostModal({ isOpen, onClose, onSave, post }: EditPos
       onClose()
     } catch (error) {
       console.error(error)
+      alert('Error al guardar los cambios.')
     } finally {
       setIsSaving(false)
     }
@@ -45,7 +46,7 @@ export default function EditPostModal({ isOpen, onClose, onSave, post }: EditPos
   if (!isOpen || !post) return null
 
   return (
-    <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm transition-all">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm transition-all">
       <div className="bg-gray-800 w-full max-w-2xl rounded-2xl shadow-2xl border border-gray-700 overflow-hidden transform transition-all scale-100">
         
         <div className="flex justify-between items-center p-6 border-b border-gray-700 bg-gray-900/50">
@@ -94,7 +95,7 @@ export default function EditPostModal({ isOpen, onClose, onSave, post }: EditPos
           </button>
           <button 
             onClick={handleSave}
-            disabled={isSaving}
+            disabled={isSaving || !title.trim() || !content.trim()}
             className="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center gap-2 disabled:opacity-50"
           >
             {isSaving ? <FaSpinner className="animate-spin" /> : <FaSave />}

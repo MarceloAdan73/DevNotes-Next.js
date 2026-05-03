@@ -94,7 +94,7 @@ export default function PostCard({ post, onDelete, onEdit, isDemo = false }: Pos
           </h3>
           
           {!isDemo && (
-            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-gray-800 rounded-lg p-1 border border-gray-700 absolute right-4 top-4 shadow-lg z-10">
+            <div className="flex gap-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 bg-gray-800 rounded-lg p-1 border border-gray-700 absolute right-4 top-4 shadow-lg z-10">
               <button onClick={() => onEdit(post)} className="text-gray-400 hover:text-blue-400 p-2 hover:bg-gray-700 rounded transition-colors"><FaEdit size={14} /></button>
               <button onClick={handleDelete} disabled={isDeleting} className="text-gray-400 hover:text-red-400 p-2 hover:bg-gray-700 rounded transition-colors">
                 {isDeleting ? <span className="animate-spin">⌛</span> : <FaTrash size={14} />}

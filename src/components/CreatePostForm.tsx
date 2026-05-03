@@ -30,7 +30,10 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
       setTitle('')
       setContent('')
       setTags([])
-    } catch (e) { console.error(e) } 
+    } catch (e) { 
+      console.error(e) 
+      alert('Error al guardar la nota. Verifica tu conexión o las credenciales de Supabase.')
+    } 
     finally { setLoading(false) }
   }
 
@@ -47,13 +50,12 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
 
     const newText = text.substring(0, start) + prefix + text.substring(start, end) + suffix + text.substring(end)
     
+    el.value = newText
     setContent(newText)
     
-    setTimeout(() => {
-      el.focus()
-      const cursorPosition = start + prefix.length
-      el.setSelectionRange(cursorPosition, cursorPosition)
-    }, 0)
+    const cursorPosition = start + prefix.length
+    el.focus()
+    el.setSelectionRange(cursorPosition, cursorPosition)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -78,6 +80,7 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Título de la nota..."
+          aria-label="Título de la nota"
           className="w-full bg-transparent text-xl font-bold text-white placeholder-gray-500 outline-none"
         />
       </div>
@@ -134,7 +137,7 @@ export default function CreatePostForm({ onPostCreated }: CreatePostFormProps) {
         </div>
 
         <button 
-          disabled={loading || !title}
+          disabled={loading || !title.trim() || !content.trim()}
           className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all flex justify-center items-center gap-2 disabled:opacity-50 shadow-lg"
         >
           {loading ? <FaSpinner className="animate-spin" /> : <FaPaperPlane />}
