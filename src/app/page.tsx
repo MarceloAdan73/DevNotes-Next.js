@@ -226,7 +226,7 @@ export default function Home() {
   )
 
   // Lógica para decidir qué mostrar
-  const showWelcomeCard = !loading && posts.length === 0 && !searchTerm;
+  const showWelcomeCard = !loading && !searchTerm;
 
   if (loading) return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
